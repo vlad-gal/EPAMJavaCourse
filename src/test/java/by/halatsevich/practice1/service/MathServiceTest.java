@@ -19,17 +19,25 @@ public class MathServiceTest {
     }
 
     @Test
-    public void testLastSquareDigitSuccess() throws ValidatorException {
-        int actual = 6;
-        int expected = service.lastSquareDigit(4);
-        assertEquals(actual, expected);
+    public void testLastSquareDigitSuccess() {
+        try {
+            int actual = 6;
+            int expected = service.lastSquareDigit(4);
+            assertEquals(actual, expected);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test
-    public void testLastSquareDigitFailure() throws ValidatorException {
-        int actual = 6;
-        int expected = service.lastSquareDigit(13);
-        assertNotEquals(actual, expected);
+    public void testLastSquareDigitFailure() {
+        try {
+            int actual = 6;
+            int expected = service.lastSquareDigit(13);
+            assertNotEquals(actual, expected);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,
@@ -39,15 +47,23 @@ public class MathServiceTest {
     }
 
     @Test
-    public void testAreTwoEvenNumbersSuccess() throws ValidatorException {
-        boolean condition = service.areTwoEvenNumbers(4, 3, 1, 2);
-        assertTrue(condition);
+    public void testAreTwoEvenNumbersSuccess() {
+        try {
+            boolean condition = service.areTwoEvenNumbers(4, 3, 1, 2);
+            assertTrue(condition);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test
-    public void testAreTwoEvenNumbersFailure() throws ValidatorException {
-        boolean condition = service.areTwoEvenNumbers(4, 3, 1, 1);
-        assertFalse(condition);
+    public void testAreTwoEvenNumbersFailure() {
+        try {
+            boolean condition = service.areTwoEvenNumbers(4, 3, 1, 1);
+            assertFalse(condition);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,
@@ -57,15 +73,23 @@ public class MathServiceTest {
     }
 
     @Test
-    public void testIsPerfectNumberSuccess() throws ValidatorException {
-        boolean condition = service.isPerfectNumber(6);
-        assertTrue(condition);
+    public void testIsPerfectNumberSuccess() {
+        try {
+            boolean condition = service.isPerfectNumber(6);
+            assertTrue(condition);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test
-    public void testIsPerfectNumberFailure() throws ValidatorException {
-        boolean condition = service.isPerfectNumber(342);
-        assertFalse(condition);
+    public void testIsPerfectNumberFailure() {
+        try {
+            boolean condition = service.isPerfectNumber(342);
+            assertFalse(condition);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,
@@ -84,9 +108,13 @@ public class MathServiceTest {
     }
 
     @Test(dataProvider = "valuesForFx")
-    public void testCalculateFxSuccess(double value, double actual) throws ValidatorException {
-        double expected = service.calculateFx(value);
-        assertEquals(actual, expected, 0.001);
+    public void testCalculateFxSuccess(double value, double actual) {
+        try {
+            double expected = service.calculateFx(value);
+            assertEquals(actual, expected, 0.001);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @DataProvider(name = "invalidValuesForFx")
@@ -99,9 +127,13 @@ public class MathServiceTest {
     }
 
     @Test(dataProvider = "invalidValuesForFx")
-    public void testCalculateFxFailure(double value, double actual) throws ValidatorException {
-        double expected = service.calculateFx(value);
-        assertNotEquals(actual, expected, 0.001);
+    public void testCalculateFxFailure(double value, double actual) {
+        try {
+            double expected = service.calculateFx(value);
+            assertNotEquals(actual, expected, 0.001);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,
@@ -111,25 +143,33 @@ public class MathServiceTest {
     }
 
     @Test
-    public void testCalculateTgxSuccess() throws ValidatorException {
-        Map<Double, Double> actual = new LinkedHashMap<>();
-        actual.put(70.0, 2.7474774194546216);
-        actual.put(80.0, 5.671281819617707);
-        actual.put(90.0, Double.POSITIVE_INFINITY);
-        actual.put(93.0, -19.081136687728208);
-        Map<Double, Double> expected = service.calculateTgx(70, 93, 10);
-        assertEqualsDeep(actual, expected);
+    public void testCalculateTgxSuccess() {
+        try {
+            Map<Double, Double> actual = new LinkedHashMap<>();
+            actual.put(70.0, 2.7474774194546216);
+            actual.put(80.0, 5.671281819617707);
+            actual.put(90.0, Double.POSITIVE_INFINITY);
+            actual.put(93.0, -19.081136687728208);
+            Map<Double, Double> expected = service.calculateTgx(70, 93, 10);
+            assertEqualsDeep(actual, expected);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test
-    public void testCalculateTgxFailure() throws ValidatorException {
-        Map<Double, Double> actual = new LinkedHashMap<>();
-        actual.put(70.0, 2.1);
-        actual.put(80.0, 5.7);
-        actual.put(90.0, 1.1);
-        actual.put(100.0, -5.6);
-        Map<Double, Double> expected = service.calculateTgx(70, 100, 10);
-        assertNotEqualsDeep(actual, expected);
+    public void testCalculateTgxFailure() {
+        try {
+            Map<Double, Double> actual = new LinkedHashMap<>();
+            actual.put(70.0, 2.1);
+            actual.put(80.0, 5.7);
+            actual.put(90.0, 1.1);
+            actual.put(100.0, -5.6);
+            Map<Double, Double> expected = service.calculateTgx(70, 100, 10);
+            assertNotEqualsDeep(actual, expected);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,

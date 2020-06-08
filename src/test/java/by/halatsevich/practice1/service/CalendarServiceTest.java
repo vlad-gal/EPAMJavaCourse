@@ -5,8 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.*;
 
 
 public class CalendarServiceTest {
@@ -27,9 +26,13 @@ public class CalendarServiceTest {
     }
 
     @Test(dataProvider = "date")
-    public void testCountDaysInMonthSuccess(int year, int month, int expectedDays) throws ValidatorException {
-        int actual = service.countDaysInMonth(year, month);
-        assertEquals(actual, expectedDays);
+    public void testCountDaysInMonthSuccess(int year, int month, int expectedDays) {
+        try {
+            int actual = service.countDaysInMonth(year, month);
+            assertEquals(actual, expectedDays);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @DataProvider(name = "invalidDate")
@@ -42,9 +45,13 @@ public class CalendarServiceTest {
     }
 
     @Test(dataProvider = "invalidDate")
-    public void testCountDaysInMonthFailure(int year, int month, int expectedDays) throws ValidatorException {
-        int actual = service.countDaysInMonth(year, month);
-        assertNotEquals(actual, expectedDays);
+    public void testCountDaysInMonthFailure(int year, int month, int expectedDays) {
+        try {
+            int actual = service.countDaysInMonth(year, month);
+            assertNotEquals(actual, expectedDays);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @DataProvider(name = "invalidMonth")
@@ -87,9 +94,13 @@ public class CalendarServiceTest {
     }
 
     @Test(dataProvider = "seconds")
-    public void testCountFullTimeSuccess(int[] expectedTime, int seconds) throws ValidatorException {
-        int[] actual = service.countFullTime(seconds);
-        assertEquals(actual, expectedTime);
+    public void testCountFullTimeSuccess(int[] expectedTime, int seconds) {
+        try {
+            int[] actual = service.countFullTime(seconds);
+            assertEquals(actual, expectedTime);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @DataProvider(name = "invalidSeconds")
@@ -102,9 +113,13 @@ public class CalendarServiceTest {
     }
 
     @Test(dataProvider = "invalidSeconds")
-    public void testCountFullTimeFailure(int[] expectedTime, int seconds) throws ValidatorException {
-        int[] actual = service.countFullTime(seconds);
-        assertNotEquals(actual, expectedTime);
+    public void testCountFullTimeFailure(int[] expectedTime, int seconds) {
+        try {
+            int[] actual = service.countFullTime(seconds);
+            assertNotEquals(actual, expectedTime);
+        } catch (ValidatorException e) {
+            fail("Something went wrong");
+        }
     }
 
     @Test(expectedExceptions = ValidatorException.class,
