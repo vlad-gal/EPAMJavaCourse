@@ -21,8 +21,8 @@ public class MathServiceTest {
     @Test
     public void testLastSquareDigitSuccess() {
         try {
-            int actual = 6;
-            int expected = service.lastSquareDigit(4);
+            int actual = service.lastSquareDigit(4);
+            int expected = 6;
             assertEquals(actual, expected);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -32,8 +32,8 @@ public class MathServiceTest {
     @Test
     public void testLastSquareDigitFailure() {
         try {
-            int actual = 6;
-            int expected = service.lastSquareDigit(13);
+            int actual = service.lastSquareDigit(13);
+            int expected = 6;
             assertNotEquals(actual, expected);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -108,9 +108,9 @@ public class MathServiceTest {
     }
 
     @Test(dataProvider = "valuesForFx")
-    public void testCalculateFxSuccess(double value, double actual) {
+    public void testCalculateFxSuccess(double value, double expected) {
         try {
-            double expected = service.calculateFx(value);
+            double actual = service.calculateFx(value);
             assertEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -127,9 +127,9 @@ public class MathServiceTest {
     }
 
     @Test(dataProvider = "invalidValuesForFx")
-    public void testCalculateFxFailure(double value, double actual) {
+    public void testCalculateFxFailure(double value, double expected) {
         try {
-            double expected = service.calculateFx(value);
+            double actual = service.calculateFx(value);
             assertNotEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -145,12 +145,12 @@ public class MathServiceTest {
     @Test
     public void testCalculateTgxSuccess() {
         try {
-            Map<Double, Double> actual = new LinkedHashMap<>();
-            actual.put(70.0, 2.7474774194546216);
-            actual.put(80.0, 5.671281819617707);
-            actual.put(90.0, Double.POSITIVE_INFINITY);
-            actual.put(93.0, -19.081136687728208);
-            Map<Double, Double> expected = service.calculateTgx(70, 93, 10);
+            Map<Double, Double> actual = service.calculateTgx(70, 93, 10);
+            Map<Double, Double> expected = new LinkedHashMap<>();
+            expected.put(70.0, 2.7474774194546216);
+            expected.put(80.0, 5.671281819617707);
+            expected.put(90.0, Double.POSITIVE_INFINITY);
+            expected.put(93.0, -19.081136687728208);
             assertEqualsDeep(actual, expected);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -160,12 +160,12 @@ public class MathServiceTest {
     @Test
     public void testCalculateTgxFailure() {
         try {
-            Map<Double, Double> actual = new LinkedHashMap<>();
-            actual.put(70.0, 2.1);
-            actual.put(80.0, 5.7);
-            actual.put(90.0, 1.1);
-            actual.put(100.0, -5.6);
-            Map<Double, Double> expected = service.calculateTgx(70, 100, 10);
+            Map<Double, Double> actual = service.calculateTgx(70, 100, 10);
+            Map<Double, Double> expected = new LinkedHashMap<>();
+            expected.put(70.0, 2.1);
+            expected.put(80.0, 5.7);
+            expected.put(90.0, 1.1);
+            expected.put(100.0, -5.6);
             assertNotEqualsDeep(actual, expected);
         } catch (ValidatorException e) {
             fail("Something went wrong");
