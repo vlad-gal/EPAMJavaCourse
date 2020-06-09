@@ -50,8 +50,8 @@ public class GeometricServiceTest {
     @Test
     public void testNearestPointSuccess() {
         try {
-            Point expected = service.nearestPoint(a, b);
-            assertEquals(a, expected);
+            Point actual = service.nearestPoint(a, b);
+            assertEquals(actual, a);
         } catch (ValidatorException e) {
             fail("Something went wrong");
         }
@@ -60,8 +60,8 @@ public class GeometricServiceTest {
     @Test
     public void testNearestPointFailure() {
         try {
-            Point expected = service.nearestPoint(a, b);
-            assertNotEquals(b, expected);
+            Point actual = service.nearestPoint(a, b);
+            assertNotEquals(actual, b);
         } catch (ValidatorException e) {
             fail("Something went wrong");
         }
@@ -71,8 +71,8 @@ public class GeometricServiceTest {
     public void testNearestPointSame() {
         try {
             b = new Point("B", 2, 43);
-            Point actual = new Point("SAME", a.getX(), a.getY());
-            Point expected = service.nearestPoint(a, b);
+            Point actual = service.nearestPoint(a, b);
+            Point expected = new Point("SAME", a.getX(), a.getY());
             assertEquals(actual, expected);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -96,8 +96,8 @@ public class GeometricServiceTest {
     @Test
     public void testCalculateCircleSquareSuccess() {
         try {
-            double actual = 50.265;
-            double expected = service.calculateCircleSquare(4);
+            double actual = service.calculateCircleSquare(4);
+            double expected = 50.265;
             assertEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -107,8 +107,8 @@ public class GeometricServiceTest {
     @Test
     public void testCalculateCircleSquareFailure() {
         try {
-            double actual = 50;
-            double expected = service.calculateCircleSquare(4);
+            double actual = service.calculateCircleSquare(4);
+            double expected = 50;
             assertNotEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -124,8 +124,8 @@ public class GeometricServiceTest {
     @Test
     public void testCalculateCircumferenceSuccess() {
         try {
-            double actual = 12.566;
-            double expected = service.calculateCircumference(2);
+            double actual = service.calculateCircumference(2);
+            double expected = 12.566;
             assertEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
@@ -135,8 +135,8 @@ public class GeometricServiceTest {
     @Test
     public void testCalculateCircumferenceFailure() {
         try {
-            double actual = 123;
-            double expected = service.calculateCircumference(2);
+            double actual = service.calculateCircumference(2);
+            double expected = 123;
             assertNotEquals(actual, expected, 0.001);
         } catch (ValidatorException e) {
             fail("Something went wrong");
