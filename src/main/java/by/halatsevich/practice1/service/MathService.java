@@ -24,11 +24,10 @@ public class MathService {
      * @return last digit squared number
      */
     public int lastSquareDigit(int number) throws ValidatorException {
-        if (ArithmeticValidator.isValidNumber(number)) {
-            return (int) (Math.pow(number % 10, 2) % 10);
-        } else {
+        if (!ArithmeticValidator.isValidNumber(number)) {
             throw new ValidatorException("The number is not in the range [-400;400]");
         }
+        return (int) (Math.pow(number % 10, 2) % 10);
     }
 
     /**
@@ -39,17 +38,16 @@ public class MathService {
      * false if there are less
      */
     public boolean areTwoEvenNumbers(int... numbers) throws ValidatorException {
-        if (ArithmeticValidator.isRightCountOfNumber(numbers)) {
-            int count = 0;
-            for (int number : numbers) {
-                if (number % 2 == 0) {
-                    count++;
-                }
-            }
-            return (count >= 2);
-        } else {
+        if (!ArithmeticValidator.isRightCountOfNumber(numbers)) {
             throw new ValidatorException("The number of values differs from 4");
         }
+        int count = 0;
+        for (int number : numbers) {
+            if (number % 2 == 0) {
+                count++;
+            }
+        }
+        return (count >= 2);
     }
 
     /**
@@ -59,17 +57,16 @@ public class MathService {
      * @return true if entered number is perfect, false if not
      */
     public boolean isPerfectNumber(int number) throws ValidatorException {
-        if (number > 0) {
-            int sum = 0;
-            for (int i = 1; i < number; i++) {
-                if (number % i == 0) {
-                    sum += i;
-                }
-            }
-            return (sum == number);
-        } else {
+        if (number <= 0) {
             throw new ValidatorException("The number is less than 0");
         }
+        int sum = 0;
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0) {
+                sum += i;
+            }
+        }
+        return (sum == number);
     }
 
     /**
@@ -79,17 +76,16 @@ public class MathService {
      * @return calculation result
      */
     public double calculateFx(double x) throws ValidatorException {
-        if (ArithmeticValidator.isValidNumber(x)) {
-            double result;
-            if (x >= 3) {
-                result = -Math.pow(x, 2) + 3 * x + 9;
-            } else {
-                result = 1 / (Math.pow(x, 3) - 6);
-            }
-            return result;
-        } else {
+        if (!ArithmeticValidator.isValidNumber(x)) {
             throw new ValidatorException("X is not in the range [-400;400]");
         }
+        double result;
+        if (x >= 3) {
+            result = -Math.pow(x, 2) + 3 * x + 9;
+        } else {
+            result = 1 / (Math.pow(x, 3) - 6);
+        }
+        return result;
     }
 
     /**
@@ -101,32 +97,30 @@ public class MathService {
      * @return Map where key - argument, value - value of function
      */
     public Map<Double, Double> calculateTgx(double startBorder, double finishBorder, double step) throws ValidatorException {
-        if (ArithmeticValidator.checkCorrectBorders(startBorder, finishBorder)) {
-            if (ArithmeticValidator.checkCorrectRange(startBorder, finishBorder)) {
-                List<Double> infinities = countInfOnSegment(startBorder, finishBorder);
-                LinkedHashMap<Double, Double> result = new LinkedHashMap<>();
-                double argument = startBorder;
-                double value;
-                while (argument <= finishBorder) {
-                    value = Math.tan(Math.toRadians(argument));
-                    if (!infinities.contains(argument)) {
-                        result.put(argument, value);
-                    } else {
-                        result.put(argument, Double.POSITIVE_INFINITY);
-                    }
-                    if (finishBorder > argument && finishBorder < argument + step) {
-                        value = Math.tan(Math.toRadians(finishBorder));
-                        result.put(finishBorder, value);
-                    }
-                    argument += step;
-                }
-                return result;
-            } else {
-                throw new ValidatorException("Borders are not in the range [-360;360]");
-            }
-        } else {
+        if (!ArithmeticValidator.checkCorrectBorders(startBorder, finishBorder)) {
             throw new ValidatorException("Finish border <= start border");
         }
+        if (!ArithmeticValidator.checkCorrectRange(startBorder, finishBorder)) {
+            throw new ValidatorException("Borders are not in the range [-360;360]");
+        }
+        List<Double> infinities = countInfOnSegment(startBorder, finishBorder);
+        LinkedHashMap<Double, Double> result = new LinkedHashMap<>();
+        double argument = startBorder;
+        double value;
+        while (argument <= finishBorder) {
+            value = Math.tan(Math.toRadians(argument));
+            if (!infinities.contains(argument)) {
+                result.put(argument, value);
+            } else {
+                result.put(argument, Double.POSITIVE_INFINITY);
+            }
+            if (finishBorder > argument && finishBorder < argument + step) {
+                value = Math.tan(Math.toRadians(finishBorder));
+                result.put(finishBorder, value);
+            }
+            argument += step;
+        }
+        return result;
     }
 
     /**

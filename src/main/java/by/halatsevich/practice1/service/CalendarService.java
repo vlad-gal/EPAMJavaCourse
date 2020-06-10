@@ -20,22 +20,20 @@ public class CalendarService {
      * @return number of days in month
      */
     public int countDaysInMonth(int year, int month) throws ValidatorException {
-        if (CalendarValidator.isValidYear(year)) {
-            if (CalendarValidator.isValidMonth(month)) {
-                if (isLeapYear(year)) {
-                    if (month == (Month.FEBRUARY.ordinal() + 1)) {
-                        return (Month.values()[month - 1].getDays() + 1);
-                    } else {
-                        return (Month.values()[month - 1].getDays());
-                    }
-                } else {
-                    return (Month.values()[month - 1].getDays());
-                }
+        if (!CalendarValidator.isValidYear(year)) {
+            throw new ValidatorException("Year is not in the range from 0 to 4800");
+        }
+        if (!CalendarValidator.isValidMonth(month)) {
+            throw new ValidatorException("Month number is not in the range from 1 to 12");
+        }
+        if (isLeapYear(year)) {
+            if (month == (Month.FEBRUARY.ordinal() + 1)) {
+                return (Month.values()[month - 1].getDays() + 1);
             } else {
-                throw new ValidatorException("Month number is not in the range from 1 to 12");
+                return (Month.values()[month - 1].getDays());
             }
         } else {
-            throw new ValidatorException("Year is not in the range from 0 to 4800");
+            return (Month.values()[month - 1].getDays());
         }
     }
 
@@ -57,17 +55,16 @@ public class CalendarService {
      * @return array where 0 index - hour, 1 index - minute, 2 index - seconds
      */
     public int[] countFullTime(int seconds) throws ValidatorException {
-        if (CalendarValidator.isValidSeconds(seconds)) {
-            int[] fullTime = new int[3];
-            int hour = (int) Math.floor(seconds / 3600);
-            int minute = (int) Math.floor((seconds % 3600) / 60);
-            int second = (int) Math.floor((seconds % 3600) % 60);
-            fullTime[0] = hour;
-            fullTime[1] = minute;
-            fullTime[2] = second;
-            return fullTime;
-        } else {
+        if (!CalendarValidator.isValidSeconds(seconds)) {
             throw new ValidatorException("Seconds are not in the range from 0 to 86400");
         }
+        int[] fullTime = new int[3];
+        int hour = (int) Math.floor(seconds / 3600);
+        int minute = (int) Math.floor((seconds % 3600) / 60);
+        int second = (int) Math.floor((seconds % 3600) % 60);
+        fullTime[0] = hour;
+        fullTime[1] = minute;
+        fullTime[2] = second;
+        return fullTime;
     }
 }

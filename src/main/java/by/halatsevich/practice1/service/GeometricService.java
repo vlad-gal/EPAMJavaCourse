@@ -21,18 +21,17 @@ public class GeometricService {
      * @return array where 0 index - inscribed square area, 1 index - ratio
      */
     public double[] calculateAreaAndRatio(double squareArea) throws ValidatorException {
-        if (squareArea > 0) {
-            double[] values = new double[2];
-            double squareSide = Math.sqrt(squareArea);
-            double radius = squareSide / 2;
-            double inscribedSquareArea = 2 * Math.pow(radius, 2);
-            double ratio = squareArea / inscribedSquareArea;
-            values[0] = inscribedSquareArea;
-            values[1] = ratio;
-            return values;
-        } else {
+        if (squareArea <= 0) {
             throw new ValidatorException("Specified square area is less than 0");
         }
+        double[] values = new double[2];
+        double squareSide = Math.sqrt(squareArea);
+        double radius = squareSide / 2;
+        double inscribedSquareArea = 2 * Math.pow(radius, 2);
+        double ratio = squareArea / inscribedSquareArea;
+        values[0] = inscribedSquareArea;
+        values[1] = ratio;
+        return values;
     }
 
     /**
@@ -43,22 +42,20 @@ public class GeometricService {
      * @return nearest point to plot origin
      */
     public Point nearestPoint(Point pointA, Point pointB) throws ValidatorException {
-        if (ArithmeticValidator.isValidPoint(pointA)) {
-            if (ArithmeticValidator.isValidPoint(pointB)) {
-                if (Math.hypot(pointA.getX(), pointA.getY())
-                        > Math.hypot(pointB.getX(), pointB.getY())) {
-                    return pointB;
-                } else if ((Math.hypot(pointA.getX(), pointA.getY())
-                        < Math.hypot(pointB.getX(), pointB.getY()))) {
-                    return pointA;
-                } else {
-                    return new Point("SAME", pointA.getX(), pointA.getY());
-                }
-            } else {
-                throw new ValidatorException("Second point's coordinates are not in the range [-360;360]");
-            }
-        } else {
+        if (!ArithmeticValidator.isValidPoint(pointA)) {
             throw new ValidatorException("First point's coordinates are not in the range [-360;360]");
+        }
+        if (!ArithmeticValidator.isValidPoint(pointB)) {
+            throw new ValidatorException("Second point's coordinates are not in the range [-360;360]");
+        }
+        if (Math.hypot(pointA.getX(), pointA.getY())
+                > Math.hypot(pointB.getX(), pointB.getY())) {
+            return pointB;
+        } else if ((Math.hypot(pointA.getX(), pointA.getY())
+                < Math.hypot(pointB.getX(), pointB.getY()))) {
+            return pointA;
+        } else {
+            return new Point("SAME", pointA.getX(), pointA.getY());
         }
     }
 
@@ -69,11 +66,10 @@ public class GeometricService {
      * @return circle square
      */
     public double calculateCircleSquare(double radius) throws ValidatorException {
-        if (radius > 0) {
-            return (Math.PI * Math.pow(radius, 2));
-        } else {
+        if (radius <= 0) {
             throw new ValidatorException("Circle radius is less than 0");
         }
+        return (Math.PI * Math.pow(radius, 2));
     }
 
     /**
@@ -83,10 +79,9 @@ public class GeometricService {
      * @return circle circumference
      */
     public double calculateCircumference(double radius) throws ValidatorException {
-        if (radius > 0) {
-            return (2 * Math.PI * radius);
-        } else {
+        if (radius <= 0) {
             throw new ValidatorException("Circle radius is less than 0");
         }
+        return (2 * Math.PI * radius);
     }
 }
