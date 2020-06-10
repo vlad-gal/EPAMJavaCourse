@@ -27,11 +27,8 @@ public class CalendarService {
             throw new ValidatorException("Month number is not in the range from 1 to 12");
         }
         if (isLeapYear(year)) {
-            if (month == (Month.FEBRUARY.ordinal() + 1)) {
-                return (Month.values()[month - 1].getDays() + 1);
-            } else {
-                return (Month.values()[month - 1].getDays());
-            }
+            return (month == (Month.FEBRUARY.ordinal() + 1))
+                    ? (Month.values()[month - 1].getDays() + 1) : (Month.values()[month - 1].getDays());
         } else {
             return (Month.values()[month - 1].getDays());
         }
